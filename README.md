@@ -5,7 +5,7 @@
 
 This project is a text-based RPG game where players navigate through different locations, fight monsters, and manage their stats such as XP, health, and gold.
 
-![Gameplay Screenshot]([gameplay-screenshot.png](https://github.com/ericsecution/fcc-cert-text-based-rpg/assets/109568180/25f5b741-98d3-41c2-a9a9-c5cd9d9da17a))
+![Gameplay Screenshot](https://github.com/ericsecution/fcc-cert-text-based-rpg/assets/109568180/25f5b741-98d3-41c2-a9a9-c5cd9d9da17a)
 
 ## Features
 
