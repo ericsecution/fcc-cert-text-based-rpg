@@ -60,40 +60,54 @@ const monsters = [
 ];
 
 const locations = [
-    // 1 = locations[0]
+    // 1 = locations[0] >> called by the goTown() function
     {
         name: "town square",
         "button text": ["Go to store", "Go to cave", "Fight dragon"],
         "button functions": [goStore, goCave, fightDragon],
         text: "You are in the town square. You see a sign that says \"Store\".",
     },
-    // 2 = locations[1]
+    // 2 = locations[1] >> called by the goStore() function
     {
-        name: "store",
+        name: "store", 
         "button text": ["Buy 10 health (10 gold)","Buy weapon (30 gold)","Go to town square"],
         "button functions": [buyHealth, buyWeapon, goTown],
         text: "You enter the store.",
     },
-    // 3 = locations[2]
+    // 3 = locations[2] >> called by the goCave() function
     {
         name: "cave",
         "button text": ["Fight slime","Fight fanged beast","Go to town square"],
         "button functions": [fightSlime, fightBeast, goTown],
         text: "You enter the cave. You see some monsters.",
     },
-    // 4 = locations[3]
+    // 4 = locations[3] >> called by the goFight() function
     {
         name: "fight",
         "button text": ["Attack","Dodge","Run"],
         "button functions": [attack, dodge, goTown],
         text: "You are fighting a monster.",
     },   
-    // 5 = locations[4]
+    // 5 = locations[4] >> called by the defeatMonster() function
     {
         name: "kill monster",
         "button text": ["Go to town square","Go to town square","Go to town square"],
         "button functions": [goTown, goTown, goTown],
         text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
+    },
+    // 6 = locations[5] >> called by the lose() function
+    {
+        name: "lose",
+        "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+        "button functions": [restart, restart, restart],
+        text: "You die. &#x2620;",
+    },   
+    // 7 = locations[6] >> called by the winGame() function
+    {
+        name: "win",
+        "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+        "button functions": [restart, restart, restart],
+        text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
     },      
 ];
 
@@ -111,7 +125,7 @@ function update(location) {
     button1.onclick = location["button functions"][0];
     button2.onclick = location["button functions"][1];
     button3.onclick = location["button functions"][2];
-    text.innerText = location.text; 
+    text.innerHTML = location.text; 
 }
 
 function goTown() {
@@ -206,6 +220,11 @@ function attack() {
         lose();
     } else if (monsterHealth <= 0) {
         defeatMonster();
+        if (fighting === 2) {
+            winGame();
+        } else {
+            defeatMonster();
+        }
     }
 }
 
@@ -222,7 +241,23 @@ function defeatMonster() {
 }
 
 function lose() {
-  
+    update(locations[5]);
+}
+
+function winGame() {
+    update(locations[6]);
+}
+
+function restart() {
+    xp = 0;
+    health = 100;
+    gold = 50;
+    currentWeapon = 0;
+    inventory = ["stick"];
+    goldText.innerText = gold;
+    healthText.innerText = health;
+    xpText.innerText = xp;
+    goTown();
 }
 
 function pauseTime(amount) {
