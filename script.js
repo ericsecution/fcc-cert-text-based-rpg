@@ -108,7 +108,14 @@ const locations = [
         "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
         "button functions": [restart, restart, restart],
         text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
-    },      
+    },
+        // 8 = locations[7] >> called by the easterEgg() function
+        {
+            name: "easter egg",
+            "button text": ["2", "8", "Go to town square?"],
+            "button functions": [pickTwo, pickEight, goTown],
+            text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!",
+        },         
 ];
 
 // initialize buttons
@@ -211,9 +218,14 @@ function goFight() {
 function attack() {
     text.innerText = "The " + monsters[fighting].name + " attacks.";
     text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
-    health -= monsters[fighting].level;
-    monsterHealth -= weapons[currentWeapon].power +
-    Math.floor(Math.random() * xp) + 1;
+    health -= getMonsterAttackValue(monsters[fighting].level);
+    if(isMonsterHit()) {
+        monsterHealth -= weapons[currentWeapon].power +
+        Math.floor(Math.random() * xp) + 1;
+    } else {
+        text.innerText += " You miss.";
+    }
+
     healthText.innerText = health;
     monsterHealthText.innerText = monsterHealth;
     if (health <= 0) {
@@ -226,6 +238,22 @@ function attack() {
             defeatMonster();
         }
     }
+    if (Math.random() <= .1 && inventory.length !== 1) {
+    text.innerText += " Your " + inventory.pop() + " breaks.";
+    currentWeapon--;
+    }
+}
+
+
+
+function getMonsterAttackValue(level) {
+    const hit = (level * 5) - (Math.floor(Math.random() * xp));
+    console.log(hit);
+    return hit > 0 ? hit : 0;
+}
+
+function isMonsterHit() {
+return (Math.random() > .2) || health < 20;
 }
 
 function dodge() {
@@ -259,6 +287,26 @@ function restart() {
     xpText.innerText = xp;
     goTown();
 }
+
+function easterEgg() {
+    update(locations[7]);
+}
+
+function pick(guess) {
+    const numbers = [];
+    while (numbers.length < 10) {
+        numbers += numbers.push(Math.floor(Math.random() * 11));
+    }
+    text.innerText = "You picked " + guess + ". Here are the random numbers:";
+}
+
+function pickTwo() {
+    pick(2);
+    }
+    
+function pickEight() {
+    pick(8);
+    }
 
 function pauseTime(amount) {
     const timestamp = Date.now();
