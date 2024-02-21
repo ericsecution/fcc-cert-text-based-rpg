@@ -1,6 +1,7 @@
-<img src="https://github.com/ericsecution/fcc-cert-text-based-rpg/assets/109568180/7c84f903-9f57-467f-a636-11c1d026c485" align="right" />
-
 # Text-Based RPG Game
+
+![Save the Town!](https://github.com/ericsecution/fcc-cert-text-based-rpg/assets/109568180/7c84f903-9f57-467f-a636-11c1d026c485)
+
 > A simple yet engaging text-based RPG adventure
 
 This project is a text-based RPG game where players navigate through different locations, fight monsters, and manage their stats such as XP, health, and gold.
@@ -38,4 +39,3 @@ Contributions are welcome! Feel free to submit pull requests or open issues to i
 ## License
 
 [MIT LICENSE](https://github.com/ericsecution/fcc-cert-text-based-rpg/blob/cbeeae41131c2d888d8efe6f61cb4079f3b34cc5/LICENSE)
-
