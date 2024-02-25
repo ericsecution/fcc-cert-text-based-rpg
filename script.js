@@ -26,38 +26,216 @@ const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
 
 const weapons = [
-	{
-		name: 'stick',
+	{                       // Index #
+                           // -------
+		name: 'Stick',     //    0
 		power: 5,
 	},
+    {
+        name: 'Club',     //     1
+        power: 11,
+    },
+    {
+        name: 'Spear',    //     2
+        power: 15,
+    },
+    {
+        name: 'Bow',      //     3
+        power: 20,
+    },
+    {
+        name: 'Mallet',   //     4
+        power: 23,
+    },
+    {
+        name: 'Magic Wand', //   5
+        power: 25,
+    },
 	{
-		name: 'dagger',
+		name: 'Dagger',     //   6
 		power: 30,
 	},
+    {
+        name: 'Axe',        //   7
+        power: 35,
+    },
+    {
+        name: 'Crossbow',   //   8
+        power: 40,
+    },
+    {
+        name: 'Flail',      //   9
+        power: 45,
+    },
 	{
-		name: 'claw hammer',
+		name: 'Claw Hammer', //  10
 		power: 50,
 	},
+    {
+		name: 'Warhammer',   //  11
+		power: 55,
+	},
+    {
+		name: 'Battle Axe',  //  12
+		power: 60,
+	},
+    {
+		name: 'Fire Staff',  //  13
+		power: 70,
+	},
+    {
+		name: 'Lightning Sword',  //  14
+		power: 80,
+	},
+    {
+		name: 'Ice Dagger',  //  15
+		power: 85,
+	},
+    {
+		name: 'Shadow Blade',  //  16
+		power: 99,
+	},
 	{
-		name: 'sword',
-		power: 100,
+		name: 'Sword of the Dead',  //  17
+		power: 111,
+	},
+    {
+		name: 'Morning Glory',  //  18
+		power: 132,
+	},
+    {
+		name: 'The Invisible',  //  19
+		power: 150,
 	},
 ];
 
+// Currently: 20 different Monsters
+// ----------
 const monsters = [
 	{
-		name: 'slime',
+		name: 'Slime',
 		level: 2,
-		health: 15,
+		health: 11,
 	},
-	{
-		name: 'fanged beast',
+    {
+        name: 'Imp',
+        level: 3,
+        health: 18
+
+    },
+    {
+		name: 'Goblin',
+		level: 4,
+		health: 30,
+	},
+    {
+		name: 'Hobgoblin',
+		level: 5,
+		health: 35,
+	},
+    {
+		name: 'Orc',
+		level: 7,
+		health: 45,
+	},
+    {
+		name: 'Banshee',
 		level: 8,
 		health: 60,
 	},
+    {
+		name: 'Orc Captain',
+		level: 9,
+		health: 65,
+	},
+    {
+        name: 'Skeletwin', // always appear in pairs
+        level: 10,
+        health: 72,
+    },
 	{
-		name: 'dragon',
-		level: 20,
+		name: 'Troll',
+		level: 11,
+		health: 80,
+	},
+    {
+        name: 'Demon Fairy',
+        level: 12,
+        health: 85
+    },
+    {
+        name: 'She Troll',
+        level: 13,
+        health: 88,
+    },
+    {
+        name: 'Swamp Nymph',
+        level: 14,
+        health: 95,
+    },
+    {
+        name: 'Ghost',
+        level: 15,
+        health: 101,
+    },
+    {
+        name: 'Cursed Mermaid',
+        level: 17,
+        health: 111,
+    },
+    {
+        name: 'Vampire',
+        level: 18,
+        health: 115,
+    },
+    {
+        name: 'Unibeast',
+        level: 19,
+        health: 128,
+    },
+    {
+        name: 'Werewolf',
+        level: 20,
+        health: 135,
+    },
+    {
+        name: 'Demon',
+        level: 27,
+        health: 150,
+    },
+    {
+        name: 'Ice Giant',
+        level: 33,
+        health: 170,
+    },
+    {
+        name: 'Fire Elemental',
+        level: 36,
+        health: 199,
+    },
+    {
+        name: 'Necromancer',
+        level: 40,
+        health: 211,
+    },
+    {
+        name: 'Wraith Knight',
+        level: 50,
+        health: 235,
+    },
+    {
+        name: 'Hydra',
+        level: 55,
+        health: 260,
+    },
+    {
+        name: 'Phoenix Dragon',
+        level: 77,
+        health: 277,
+    },
+	{
+		name: 'Night Dragon',
+		level: 80,
 		health: 300,
 	},
 ];
