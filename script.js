@@ -25,220 +25,419 @@ const monsterName = document.querySelector('#monsterName');
 
 const monsterHealthText = document.querySelector('#monsterHealth');
 
-const weapons = [
-	{                       // Index #
-                           // -------
-		name: 'Stick',     //    0
-		power: 5,
-	},
-    {
-        name: 'Club',     //     1
+// Currently: 20 different Weapons
+// ----------
+const weapons = [           // Index #
+                //          ------------
+
+    {                           // 0
+        name: 'Stick',
+        power: 5,
+        ability: 'Basic weapon with no special abilities', // No special ability
+        strength: 'None', // No special strength
+        desc: 'A simple stick, better than nothing.',
+        rarity: 'Common',
+    },
+    {                           // 1
+        name: 'Club',
         power: 11,
+        ability: 'Can stun enemies with a strong blow', 
+        // Stuns the enemy for one turn
+        strength: 'Blunt force effective against skeletal foes', 
+        // Effective against enemies weak to blunt force
+        desc: 'A sturdy club, capable of delivering a stunning blow.',
+        rarity: 'Common',
     },
-    {
-        name: 'Spear',    //     2
+    {                           // 2
+        name: 'Spear',
         power: 15,
+        ability: 'Can pierce through enemy armor', 
+        // Ignores a portion of the enemy's armor
+        strength: 'Sharp point ideal for aquatic enemies', 
+        // Effective against enemies weak to piercing
+        desc: 'A sharp spear, perfect for piercing through defenses.',
+        rarity: 'Uncommon',
     },
-    {
-        name: 'Bow',      //     3
+    {                           // 3
+        name: 'Bow',
         power: 20,
+        ability: 'Can attack from a distance, avoiding retaliation', 
+        // Can attack from a distance, avoiding retaliation
+        strength: 'Arrows can be coated with substances for added effects', 
+        // Versatile with different arrow types
+        desc: 'A long-range bow, allowing for attacks from a safe distance.',
+        rarity: 'Uncommon',
     },
-    {
-        name: 'Mallet',   //     4
+    {                           // 4
+        name: 'Mallet',
         power: 23,
+        ability: 'High chance of a critical hit with a heavy swing', 
+        // High chance of a critical hit
+        strength: 'Effective in shattering armor and shields', 
+        // Can break enemy defenses
+        desc: 'A heavy mallet, capable of smashing through armor.',
+        rarity: 'Uncommon',
     },
-    {
-        name: 'Magic Wand', //   5
+    {                           // 5
+        name: 'Magic Wand',
         power: 25,
+        ability: 'Can cast various spells for different effects', 
+        // Casts a random spell for additional effects
+        strength: 'Enhances magical abilities, especially effective against ethereal beings', 
+        // Boosts magical power
+        desc: 'A mystical wand, channeling magical energies.',
+        rarity: 'Rare',
     },
-	{
-		name: 'Dagger',     //   6
-		power: 30,
-	},
-    {
-        name: 'Axe',        //   7
+    {                           // 6
+        name: 'Dagger',
+        power: 30,
+        ability: 'Quick and agile, allowing for rapid strikes', 
+        // Attacks twice in one turn
+        strength: 'Can be coated with poison for additional damage over time', 
+        // Poisons the enemy
+        desc: 'A swift dagger, perfect for quick and deadly attacks.',
+        rarity: 'Rare',
+    },
+    {                           // 7
+        name: 'Axe',
         power: 35,
+        ability: 'Delivers powerful chops with each swing', 
+        // High damage but lower accuracy
+        strength: 'Especially effective in wooded environments', 
+        // Cuts through wooden defenses
+        desc: 'A mighty axe, capable of felling foes and trees alike.',
+        rarity: 'Rare',
     },
-    {
-        name: 'Crossbow',   //   8
+    {                           // 8
+        name: 'Crossbow',
         power: 40,
+        ability: 'Can snipe enemies from afar with precision', 
+        // High accuracy and critical hit chance
+        strength: 'Bolts can penetrate multiple targets', 
+        // Effective against enemies in a line
+        desc: 'A deadly crossbow, combining range and power.',
+        rarity: 'Very Rare',
     },
-    {
-        name: 'Flail',      //   9
+    {                           // 9
+        name: 'Flail',
         power: 45,
+        ability: 'Can swing in wide arcs to hit multiple enemies', 
+        // Useful for crowd control
+        strength: 'Chains emit a chilling aura, effective against fiery foes', 
+        // Can freeze enemies
+        desc: 'A fearsome flail, its spiked ball wreaking havoc on foes.',
+        rarity: 'Very Rare',
     },
-	{
-		name: 'Claw Hammer', //  10
-		power: 50,
-	},
-    {
-		name: 'Warhammer',   //  11
-		power: 55,
-	},
-    {
-		name: 'Battle Axe',  //  12
-		power: 60,
-	},
-    {
-		name: 'Fire Staff',  //  13
-		power: 70,
-	},
-    {
-		name: 'Lightning Sword',  //  14
-		power: 80,
-	},
-    {
-		name: 'Ice Dagger',  //  15
-		power: 85,
-	},
-    {
-		name: 'Shadow Blade',  //  16
-		power: 99,
-	},
-	{
-		name: 'Sword of the Dead',  //  17
-		power: 111,
-	},
-    {
-		name: 'Morning Glory',  //  18
-		power: 132,
-	},
-    {
-		name: 'The Invisible',  //  19
-		power: 150,
-	},
+    {                           // 10
+        name: 'Claw Hammer',
+        power: 50,
+        ability: 'Can pry open locked doors or chests', 
+        // Useful for accessing new areas or loot
+        strength: 'Generates a thunderous impact, effective against metallic foes', 
+        // Stuns foes
+        desc: 'A versatile claw hammer, feared for its destructive force.',
+        rarity: 'Very Rare',
+    },
+    {                           // 11
+        name: 'Warhammer',
+        power: 55,
+        ability: 'Can stagger enemies, reducing their speed', 
+        // Reduces enemy's speed for the next turn
+        strength: 'Inflicts massive damage, especially effective in open battlefields', 
+        // Calls down a meteor
+        desc: 'A colossal warhammer, capable of crushing foes with ease.',
+        rarity: 'Extremely Rare',
+    },
+    {                           // 12
+        name: 'Battle Axe',
+        power: 60,
+        ability: 'Can cleave through multiple foes in one swing', 
+        // Hits multiple enemies in one swing
+        strength: 'Whirlwind attack can hit all surrounding enemies, effective in close quarters', 
+        // Hits all enemies surrounding the player
+        desc: 'A fearsome battle axe, designed for sweeping through enemies.',
+        rarity: 'Extremely Rare',
+    },
+    {                           // 13
+        name: 'Fire Staff',
+        power: 70,
+        ability: 'Can cast fire spells to burn enemies', 
+        // Sets the enemy on fire, dealing damage over time
+        strength: 'Unleashes a firestorm, especially devastating against icy foes', 
+        // Creates a storm of fire
+        desc: 'A staff imbued with the essence of fire, scorching all that it touches.',
+        rarity: 'Legendary',
+    },
+    {                           // 14
+        name: 'Thunderous Blade',
+        power: 80,
+        ability: 'Can call down lightning strikes', 
+        // Useful for stunning and damaging foes
+        strength: 'Crackles with unbridled lightning, effective against water-based foes', 
+        // Effective against water-based foes
+        desc: 'A sword crackling with electrical energy, capable of stunning foes with its strikes.',
+        rarity: 'Legendary',
+    },
+    {                           // 15
+        name: 'Glacial Glass Blade',
+        power: 85,
+        ability: 'Can freeze enemies solid', 
+        // Useful for immobilizing foes
+        strength: 'Emits an intense cold, effective against anything--especially heat-based foes', 
+        // Effective against heat-based foes
+        desc: 'A dagger as cold as the deepest winter, capable of thoroughly freezing anything.',
+        rarity: 'Mythical',
+    },
+    {                           // 16
+        name: 'Ethereal Edge',
+        power: 99,
+        ability: 'Can cut through both physical and ethereal planes', 
+        // Cuts through ethereal and physical planes
+        strength: 'Ethereal strikes bypass normal defenses, effective against ghostly foes', 
+        // Effective against ethereal beings
+        desc: 'A blade that seems to exist between realms, cutting through the very fabric of reality.',
+        rarity: 'Mythical',
+    },
+    {                           // 17
+        name: 'Reaper\'s Scythe',
+        power: 111,
+        ability: 'Can harvest the souls of the fallen', 
+        // Steals health from the enemy with each hit
+        strength: 'Soul reap ability has a chance to instantly kill, effective against living foes', 
+        // Can instantly kill the enemy
+        desc: 'A dark scythe that saps the life force of its victims, rumored to be crafted by Death itself.',
+        rarity: 'Mythical',
+    },
+    {                           // 18
+        name: 'Dawnbringer',
+        power: 132,
+        ability: 'Illuminates the darkest shadows, revealing hidden foes', 
+        // Emits a beam of light
+        strength: 'Radiance ability heals the wielder and damages all enemies with holy light, effective against undead foes', 
+        // Heals the player and damages all enemies
+        desc: 'A radiant weapon that banishes darkness, its light is said to be the bane of all evil.',
+        rarity: 'Mythical',
+    },
+    {                           // 19
+        name: 'Excalibur',
+        power: 150,
+        ability: 'Wielded by the rightful ruler, grants unmatched power', 
+        // Wielded by the rightful ruler of the realm
+        strength: 'Legendary power unmatched by any other weapon, effective against all foes', 
+        // Its power is unmatched
+        desc: 'A legendary sword of immense power, said to be wieldable only by the rightful ruler of the realm.',
+        rarity: 'Legendary',
+    },
 ];
 
-// Currently: 20 different Monsters
+
+// Currently: 25 different Monsters
 // ----------
-const monsters = [
-	{
-		name: 'Slime',
-		level: 2,
-		health: 11,
-	},
-    {
+const monsters = [           // Index #
+                //          ------------
+    {                           // 0
+        name: 'Slime',
+        level: 2,
+        health: 11,
+        armor: 2,
+        weakness: 'Cold',
+        monsterClass: 'Plasma',
+    },
+    {                           // 1
         name: 'Imp',
         level: 3,
-        health: 18
-
+        health: 18,
+        armor: 3,
+        weakness: 'Sunlight',
+        monsterClass: 'Demonic',
     },
-    {
-		name: 'Goblin',
-		level: 4,
-		health: 30,
-	},
-    {
-		name: 'Hobgoblin',
-		level: 5,
-		health: 35,
-	},
-    {
-		name: 'Orc',
-		level: 7,
-		health: 45,
-	},
-    {
-		name: 'Banshee',
-		level: 8,
-		health: 60,
-	},
-    {
-		name: 'Orc Captain',
-		level: 9,
-		health: 65,
-	},
-    {
-        name: 'Skeletwin', // always appear in pairs
+    {                           // 2
+        name: 'Goblin',
+        level: 4,
+        health: 30,
+        armor: 5,
+        weakness: 'Words',
+        monsterClass: 'Spawn',
+    },
+    {                           // 3
+        name: 'Hobgoblin',
+        level: 5,
+        health: 35,
+        armor: 7,
+        weakness: 'Words',
+        monsterClass: 'Spawn',
+    },
+    {                           // 4
+        name: 'Orc',
+        level: 7,
+        health: 45,
+        armor: 10,
+        weakness: 'Sunlight',
+        monsterClass: 'Spawn',
+    },
+    {                           // 5
+        name: 'Banshee',
+        level: 8,
+        health: 60,
+        armor: 0,
+        weakness: 'Pocket Watches',
+        monsterClass: 'Undead',
+    },
+    {                           // 6
+        name: 'Orc Captain',
+        level: 9,
+        health: 65,
+        armor: 12,
+        weakness: 'Sunlight',
+        monsterClass: 'Spawn',
+    },
+    {                           // 7
+        name: 'Skeletwin',
         level: 10,
         health: 72,
+        armor: 8,
+        weakness: 'Words',
+        monsterClass: 'Undead',
     },
-	{
-		name: 'Troll',
-		level: 11,
-		health: 80,
-	},
-    {
+    {                           // 8
+        name: 'Troll',
+        level: 11,
+        health: 80,
+        armor: 15,
+        weakness: 'Riddles',
+        monsterClass: 'Giant',
+    },
+    {                           // 9
         name: 'Demon Fairy',
         level: 12,
-        health: 85
+        health: 85,
+        armor: 5,
+        weakness: 'Sunlight',
+        monsterClass: 'Demonic',
     },
-    {
+    {                           // 10
         name: 'She Troll',
         level: 13,
         health: 88,
+        armor: 18,
+        weakness: 'Greed',
+        monsterClass: 'Giant',
     },
-    {
+    {                           // 11
         name: 'Swamp Nymph',
         level: 14,
         health: 95,
+        armor: 6,
+        weakness: 'Wind-up Phonographs',
+        monsterClass: 'Elemental',
     },
-    {
+    {                           // 12
         name: 'Ghost',
         level: 15,
         health: 101,
+        armor: 0,
+        weakness: 'White Noise',
+        monsterClass: 'Undead',
     },
-    {
+    {                           // 13
         name: 'Cursed Mermaid',
         level: 17,
         health: 111,
+        armor: 10,
+        weakness: 'Certain Colors',
+        colorWeakness: 'Violet Red',
+        monsterClass: 'Aquatic',
     },
-    {
+    {                           // 14
         name: 'Vampire',
         level: 18,
         health: 115,
+        armor: 12,
+        weakness: 'Sunlight',
+        monsterClass: 'Undead',
     },
-    {
+    {                           // 15
         name: 'Unibeast',
         level: 19,
         health: 128,
+        armor: 20,
+        weakness: 'Magic',
+        monsterClass: 'Mythical',
     },
-    {
+    {                           // 16
         name: 'Werewolf',
         level: 20,
         health: 135,
+        armor: 16,
+        weakness: 'Silver',
+        monsterClass: 'Beast',
     },
-    {
+    {                           // 17
         name: 'Demon',
         level: 27,
         health: 150,
+        armor: 25,
+        weakness: 'Holy',
+        monsterClass: 'Demonic',
     },
-    {
+    {                           // 18
         name: 'Ice Giant',
         level: 33,
         health: 170,
+        armor: 30,
+        weakness: 'Fire',
+        monsterClass: 'Giant',
     },
-    {
+    {                           // 19
         name: 'Fire Elemental',
         level: 36,
         health: 199,
+        armor: 20,
+        weakness: 'Water',
+        monsterClass: 'Elemental',
     },
-    {
+    {                           // 20
         name: 'Necromancer',
         level: 40,
         health: 211,
+        armor: 15,
+        weakness: 'Sunlight',
+        monsterClass: 'Spawn',
     },
-    {
+    {                           // 21
         name: 'Wraith Knight',
         level: 50,
         health: 235,
+        armor: 35,
+        weakness: 'Water',
+        monsterClass: 'Undead',
     },
-    {
+    {                           // 22
         name: 'Hydra',
         level: 55,
         health: 260,
+        armor: 40,
+        weakness: 'Fire',
+        monsterClass: 'Mythical',
     },
-    {
+    {                           // 23
         name: 'Phoenix Dragon',
         level: 77,
         health: 277,
+        armor: 50,
+        weakness: 'Cold',
+        monsterClass: 'Mythical',
     },
-	{
-		name: 'Night Dragon',
-		level: 80,
-		health: 300,
-	},
+    {                           // 24
+        name: 'Night Dragon',
+        level: 80,
+        health: 300,
+        armor: 60,
+        weakness: 'Sunlight',
+        monsterClass: 'Dragon',
+    },
 ];
+
 
 const locations = [
 	// 1 = locations[0] >> called by the goTown() function
