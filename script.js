@@ -440,136 +440,279 @@ const monsters = [           // Index #
 
 
 const locations = [
-	// 1 = locations[0] >> called by the goTown() function
-	{
-		name: 'town square',
-		'button text': ['Go to store', 'Go to cave', 'Fight dragon'],
-		'button functions': [goStore, goCave, fightDragon],
-		text: 'You are in the town square. You see a sign that says "Store".',
-	},
-	// 2 = locations[1] >> called by the goStore() function
-	{
-		name: 'store',
-		'button text': [
-			'Buy 10 health (10 gold)',
-			'Buy weapon (30 gold)',
-			'Go to town square',
-		],
-		'button functions': [buyHealth, buyWeapon, goTown],
-		text: 'You enter the store.',
-	},
-	// 3 = locations[2] >> called by the goCave() function
-	{
-		name: 'cave',
-		'button text': [
-			'Fight slime',
-			'Fight fanged beast',
-			'Go to town square',
-		],
-		'button functions': [fightSlime, fightBeast, goTown],
-		text: 'You enter the cave. You see some monsters.',
-	},
-	// 4 = locations[3] >> called by the goFight() function
-	{
-		name: 'fight',
-		'button text': ['Attack', 'Dodge', 'Run'],
-		'button functions': [attack, dodge, goTown],
-		text: 'You are fighting a monster.',
-	},
-	// 5 = locations[4] >> called by the defeatMonster() function
-	{
-		name: 'kill monster',
-		'button text': [
-			'Go to town square',
-			'Go to town square',
-			'Go to town square',
-		],
-		'button functions': [goTown, goTown, easterEgg],
-		text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
-	},
-	// 6 = locations[5] >> called by the lose() function
-	{
-		name: 'lose',
-		'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
-		'button functions': [restart, restart, restart],
-		text: 'You die. &#x2620;',
-	},
-	// 7 = locations[6] >> called by the winGame() function
-	{
-		name: 'win',
-		'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
-		'button functions': [restart, restart, restart],
-		text: 'You defeat the dragon! YOU WIN THE GAME! &#x1F389;',
-	},
-	// 8 = locations[7] >> called by the easterEgg() function
-	{
-		name: 'easter egg',
-		'button text': ['2', '8', 'Go to town square?'],
-		'button functions': [pickTwo, pickEight, goTown],
-		text: 'You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!',
-	},
+    // 1 = locations[0] >> called by the goTown() function
+    {
+        name: 'town square',
+        connectedLocations: [1, 2],
+        'button text': ['Go to store', 'Go to cave'],
+        'button functions': [goStore, goCave],
+        text: 'You are in the town square. You see a sign that says "Store".',
+    },
+    // 2 = locations[1] >> called by the goStore() function
+    {
+        name: 'store',
+        connectedLocations: [0],
+        'button text': ['Buy 10 health (10 gold)', 'Buy weapon (30 gold)', 'Go to town square'],
+        'button functions': [buyHealth, buyWeapon, goTown],
+        text: 'You enter the store.',
+    },
+    // 3 = locations[2] >> called by the goCave() function
+    {
+        name: 'cave',
+        connectedLocations: [0, 3],
+        'button text': ['Fight slime', 'Fight fanged beast', 'Go to town square'],
+        'button functions': [fightSlime, fightBeast, goTown],
+        text: 'You enter the cave. You see some monsters.',
+    },
+    // 4 = locations[3] >> called by the goFight() function
+    {
+        name: 'fight',
+        connectedLocations: [2, 4],
+        'button text': ['Attack', 'Dodge', 'Run'],
+        'button functions': [attack, dodge, goTown],
+        text: 'You are fighting a monster.',
+    },
+    // 5 = locations[4] >> called by the defeatMonster() function
+    {
+        name: 'kill monster',
+        connectedLocations: [3, 5],
+        'button text': ['Go to town square', 'Continue fighting'],
+        'button functions': [goTown, goFight],
+        text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
+    },
+    // 6 = locations[5] >> called by the lose() function
+    {
+        name: 'lose',
+        connectedLocations: [4],
+        'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
+        'button functions': [restart, restart, restart],
+        text: 'You die. &#x2620;',
+    },
+    // 7 = locations[6] >> called by the winGame() function
+    {
+        name: 'win',
+        connectedLocations: [4],
+        'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
+        'button functions': [restart, restart, restart],
+        text: 'You defeat the dragon! YOU WIN THE GAME! &#x1F389;',
+    },
+    // 8 = locations[7] >> called by the easterEgg() function
+    {
+        name: 'easter egg',
+        connectedLocations: [0],
+        'button text': ['2', '8', 'Go to town square?'],
+        'button functions': [pickTwo, pickEight, goTown],
+        text: 'You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!',
+    },
 ];
 
-// initialize buttons
 
-button1.onclick = goStore;
-button2.onclick = goCave;
-button3.onclick = fightDragon;
+//
+//
+//
 
-function update(location, index) {
-	currentLocationIndex = index;
-	monsterStats.style.display = 'none';
-	button1.innerText = location['button text'][0];
-	button2.innerText = location['button text'][1];
-	button3.innerText = location['button text'][2];
-	button1.onclick = () => location['button functions'][0]();
-	button2.onclick = () => location['button functions'][1]();
-	button3.onclick = () => location['button functions'][2]();
-	text.innerHTML = location.text;
+
+document.getElementById('xpText').style.display = 'none';
+document.getElementById('healthText').style.display = 'none';
+document.getElementById('goldText').style.display = 'none';
+
+function startGame() {
+    // Display the opening sequence text
+    text.innerHTML = "Imagine... a cinematic scene of a kingdom under siege by dragons and their minions. The hero, a young and frightened villager, is seen fleeing to the outskirts of town for his life.";
+    text.classList.add('opening-sequence');
+
+    // Hide the usual game buttons
+    button1.style.display = 'none';
+    button2.style.display = 'none';
+    button3.style.display = 'none';
+
+    // Create a continue button
+    const continueButton = document.createElement('button');
+    continueButton.id = 'continueButton';
+    continueButton.innerText = 'Continue';
+    continueButton.onclick = firstEncounter;
+    document.getElementById('controls').appendChild(continueButton);
+
+    // Create a skip intro button
+    const skipIntroButton = document.createElement('button');
+    skipIntroButton.id = 'skipIntroButton';
+    skipIntroButton.innerText = 'Skip Intro';
+    skipIntroButton.onclick = skipIntro;
+    document.getElementById('controls').appendChild(skipIntroButton);
 }
 
+function skipIntro() {
+    text.classList.remove('opening-sequence');
+    document.getElementById('xpText').style.display = 'block';
+    document.getElementById('healthText').style.display = 'block';
+    document.getElementById('goldText').style.display = 'block';
+    goTown(); // Leads the Player to just after the Opening Sequence
+}
+
+function firstEncounter() {
+    text.innerHTML = "While hiding in the woods, the hero is ambushed by an orc or a pair of imps. With no weapons at hand, the hero picks up a thick stick to defend himself.";
+    button1.innerText = 'Attack';
+    button1.style.display = 'block';
+    button1.onclick = awakening;
+    button2.style.display = 'none';
+    button3.style.display = 'none';
+}
+
+
+
+
+function awakening() {
+    text.innerHTML = "As the battle ensues, the hero feels a strange connection to the orb. The first attack against the imp is a surprising blow across the creature's chest, fueled by the orb's power. The hero gains confidence and a sense of purpose.";
+    text.classList.add('blink-red');
+    setTimeout(() => {
+        text.classList.remove('blink-red');
+    }, 1000); // Adjust the duration as needed
+    button1.style.display = 'none'; // Hide the Attack button after the hit
+}
+
+
+function encounterWithSecondImp() {
+    text.innerHTML = "The second imp, undeterred, lunges at the hero. In a reflexive motion, the hero dodges, drops the orb momentarily, which the imp sees. The second imp begins to shriek loudly, calling for reinforcements. The hero attacks again, this time with an even more powerful strike, partially severing the imp's head. The first imp, now recovering, attempts to pickup where the second imp ended off, and struggles to wheeze and catch its breath in order to call for reinforcements. The hero decides enough is enough and this time severs the first imp's head completely off its shoulders, splattering it into a nearby tree.";
+    continueButton.onclick = choice;
+    // Hide the continue button and show only the dodge button for this part
+    continueButton.style.display = 'none';
+    button2.style.display = 'block'; // Cheeck if 'button2' is the 'Dodge' button
+}
+
+function choice() {
+    text.innerHTML = "The hero hears voices from the town, calling out for anyone in need of help. Faced with a decision, the hero can choose to either respond to the calls and head back towards the town or continue fleeing into the safety of the forest.";
+    continueButton.style.display = 'none'; // Hide the continue button
+
+    // Create buttons for the choices
+    const choice1Button = document.createElement('button');
+    choice1Button.innerText = 'Respond to the calls';
+    choice1Button.onclick = function() {
+        decision(true); // true indicates the hero chose to respond
+    };
+    document.getElementById('controls').appendChild(choice1Button);
+
+    const choice2Button = document.createElement('button');
+    choice2Button.innerText = 'Continue fleeing';
+    choice2Button.onclick = function() {
+        decision(false); // false indicates the hero chose to flee
+    };
+    document.getElementById('controls').appendChild(choice2Button);
+}
+
+function decision(responded) {
+    if (responded) {
+        text.innerHTML = "The hero encounters a group of townsfolk who assist in the fight against the imps.";
+        // Additional logic for this path
+    } else {
+        text.innerHTML = "The hero stumbles upon a hidden path leading deeper into the forest, away from the immediate danger.";
+        // Additional logic for this path
+    }
+
+    // Remove the choice buttons
+    choice1Button.remove();
+    choice2Button.remove();
+
+    // Show the continue button for the next part of the story
+    continueButton.style.display = 'block';
+    continueButton.onclick = journeyBegins;
+}
+
+function journeyBegins() {
+    text.innerHTML = "Regardless of the choice, the hero's journey is set into motion. With the orb in possession, the hero embarks on a quest to uncover its secrets, face formidable foes, and ultimately, confront the dragons that threaten the land.";
+    continueButton.remove(); // Remove the continue button as the opening sequence is over
+
+    // Show the usual game buttons and reset the game state as needed
+    button1.style.display = 'block';
+    button2.style.display = 'block';
+    button3.style.display = 'block';
+    // Set up the initial game state, such as the hero's location, inventory, etc.
+    goTown(); // For example, start the game in the town square
+}
+
+
+//
+//
+//
+
+
+function update(locationIndex) {
+    const location = locations[locationIndex];
+    currentLocationIndex = locationIndex;
+    monsterStats.style.display = 'none';
+
+    location.connectedLocations.forEach((locIndex, i) => {
+        const loc = locations[locIndex];
+        const button = document.querySelector(`#button${i + 1}`);
+        if (button) {
+            button.innerText = 'Go to ' + toTitleCase(loc.name);
+            button.onclick = () => update(locIndex);
+        }
+    });
+
+    // Hide unused buttons
+    for (let i = location.connectedLocations.length; i < 3; i++) {
+        const button = document.querySelector(`#button${i + 1}`);
+        if (button) {
+            button.style.display = 'none';
+        }
+    }
+
+    text.innerHTML = location.text;
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
+// "The plural of 'RegEx' is 'regrets'."
+
+
+
 function goTown() {
-	update(locations[0], 0);
+	update(0);
 }
 
 function goStore() {
-	update(locations[1], 1);
+	update(1);
 }
 
 function goCave() {
-	update(locations[2], 2);
+	update(2);
 }
 
 async function buyHealth() {
-	const currentLocationText = locations[currentLocationIndex].text;
-	if (gold >= 10) {
-		gold -= 10;
-		health += 10;
-		goldText.innerText = gold;
-		healthText.innerText = health;
-	} else {
-		if (poorCounter < 3) {
-			text.innerText = 'You do not have enough gold to buy health.';
-			await pauseTime(3);
-			text.innerText = "You're in the Store.\n";
-			await pauseTime(1);
-			text.innerText += 'What would you like to do?';
-			poorCounter++;
-		} else {
-			text.innerText = "Seriously. You don't have enough gold!\n";
-			await pauseTime(2);
-			text.innerText += 'Go and fight monsters to gain more gold.';
-			poorCounter = 0;
+    
+    if (gold >= 10) {
+        gold -= 10;
+        health += 10;
+        goldText.innerText = gold;
+        healthText.innerText = health;
+        text.classList.add('heal');
+        await pauseTime(1); // Adjust the time as needed
+        text.classList.remove('heal');
+    } else {
+        if (poorCounter < 3) {
+            text.innerText = 'You do not have enough gold to buy health.';
             await pauseTime(3);
-			text.innerText = "You're in the Store.\n";
-			await pauseTime(1);
-			text.innerText += 'What would you like to do?';
-		}
-	}
+            text.innerText = "You're in the Store.\n";
+            await pauseTime(1);
+            text.innerText += 'What would you like to do?';
+            poorCounter++;
+        } else {
+            text.innerText = "Seriously. You don't have enough gold!\n";
+            await pauseTime(2);
+            text.innerText += 'Go and fight monsters to gain more gold.';
+            poorCounter = 0;
+            await pauseTime(3);
+            text.innerText = "You're in the Store.\n";
+            await pauseTime(1);
+            text.innerText += 'What would you like to do?';
+        }
+    }
 }
 
+
 async function buyWeapon() {
-	const currentLocationText = locations[currentLocationIndex].text;
+	
 	if (currentWeapon < weapons.length - 1) {
 		if (gold >= 30) {
 			gold -= 30;
@@ -639,7 +782,7 @@ function fightDragon() {
 }
 
 function goFight() {
-	update(locations[3], 3);
+	update(3);
 	monsterHealth = monsters[fighting].health;
 	monsterStats.style.display = 'block';
 	monsterName.innerText = monsters[fighting].name;
@@ -651,12 +794,16 @@ function attack() {
 	text.innerText +=
 		' You attack it with your ' + weapons[currentWeapon].name + '.';
 	health -= getMonsterAttackValue(monsters[fighting].level);
+    text.classList.add('attack');
 	if (isMonsterHit()) {
 		monsterHealth -=
 			weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
 	} else {
 		text.innerText += ' You miss.';
 	}
+    setTimeout(() => {
+        text.classList.remove('attack');
+    }, 1000);
 
 	healthText.innerText = health;
 	monsterHealthText.innerText = monsterHealth;
@@ -670,7 +817,7 @@ function attack() {
 			defeatMonster();
 		}
 	}
-	if (Math.random() <= 0.07 && inventory.length !== 1) {
+	if (Math.random() <= 0.005 && inventory.length !== 1) {
 		text.innerText += ' Your ' + inventory.pop() + ' breaks.';
 		currentWeapon--;
 	}
@@ -696,15 +843,15 @@ function defeatMonster() {
 	xp += monsters[fighting].level;
 	goldText.innerText = gold;
 	xpText.innerText = xp;
-	update(locations[4], 4);
+	update(4);
 }
 
 function lose() {
-	update(locations[5], 5);
+	update(5);
 }
 
 function winGame() {
-	update(locations[6], 6);
+	update(6);
 }
 
 function restart() {
@@ -720,7 +867,7 @@ function restart() {
 }
 
 function easterEgg() {
-	update(locations[7], 7);
+	update(7);
 }
 
 function pickTwo() {
@@ -760,3 +907,5 @@ function pick(guess) {
 function pauseTime(amount) {
 	return new Promise((resolve) => setTimeout(resolve, amount * 1000));
 }
+
+startGame();

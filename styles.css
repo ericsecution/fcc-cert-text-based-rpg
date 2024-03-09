@@ -27,6 +27,16 @@ body {
     padding: 5px;
 }
 
+#stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#xpText, #healthText, #goldText {
+    margin: 0 10px;
+}
+
 #monsterStats {
     display: none;
     border: 1px solid #0a0a23;
@@ -45,4 +55,95 @@ button {
     background-color: #feac32;
     background-image: linear-gradient(#fecc4c, #ffac33);
     border: 3px solid #feac32;
+}
+
+/* Define a keyframe animation for a glowing border */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+}
+
+/* Define a keyframe animation for a shaking effect */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+/* Apply the animations to the text box during an attack */
+#text.attack {
+    animation: glow 1s infinite, shake 0.5s infinite;
+}
+
+/* The keyframe animation for a green glowing border */
+@keyframes green-glow {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
+    }
+}
+
+/* Apply the animation to the text box during any healing */
+.text-box.heal {
+    animation: green-glow 1s infinite;
+}
+
+/* Add this to your CSS file */
+#continueButton, #skipIntroButton {
+    background: linear-gradient(to right, #89CFF0, #ADD8E6);
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#skipIntroButton {
+    float: right;
+}
+
+.opening-sequence #text {
+    border: 2px solid #ADD8E6;
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px #89CFF0;
+    }
+    to {
+        box-shadow: 0 0 15px #ADD8E6;
+    }
+}
+
+.blink-red {
+    animation: blinkRed 1s linear;
+}
+
+@keyframes blinkRed {
+    0% { border-color: transparent; }
+    50% { border-color: red; }
+    100% { border-color: transparent; }
 }
